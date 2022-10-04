@@ -16,25 +16,10 @@ import {
   RiSendPlaneLine,
   RiBookmarkLine,
 } from 'react-icons/ri';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
 const Post: React.FC = () => {
   // const [like, setLike] = useState(30);
   // const [toggleLike, setToggleLike] = useState(false);
-
-  // const handleLike = () => {
-  //   if (toggleLike) {
-  //     setLike(like + 1);
-  //     setToggleLike(!toggleLike);
-  //   } else if (!toggleLike) {
-  //     setLike(like - 1);
-  //     setToggleLike(toggleLike);
-  //   }
-  // };
 
   return (
     <Container>
@@ -43,23 +28,6 @@ const Post: React.FC = () => {
         <h3>Michel Pinto</h3>
       </Profile>
 
-      {/* <Swiper modules={[Navigation]} spaceBetween={50} slidesPerView={3}>
-        <SwiperSlide>
-          <Img>swiper 1</Img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Img>swiper 2</Img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Img>swiper 3</Img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Img>swiper 4</Img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Img>swiper 5</Img>
-        </SwiperSlide>
-      </Swiper> */}
       <Img></Img>
 
       <Interactions>
