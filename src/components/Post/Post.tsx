@@ -18,8 +18,14 @@ import {
 } from 'react-icons/ri';
 
 const Post: React.FC = () => {
-  // const [like, setLike] = useState(30);
-  // const [toggleLike, setToggleLike] = useState(false);
+  const [like, setLike] = useState(30);
+  const [toggleLike, setToggleLike] = useState(false);
+
+  const handleToggle = () => {
+    setToggleLike(!toggleLike);
+    setLike(toggleLike ? like - 1 : like + 1);
+    console.log('toggleLike', toggleLike);
+  };
 
   return (
     <Container>
@@ -32,7 +38,12 @@ const Post: React.FC = () => {
 
       <Interactions>
         <Icons>
-          <RiHeartLine className='icon' />
+          <RiHeartLine
+            className={`'icon-heart icon-active' ${
+              toggleLike ? 'icon-active' : 'icon-heart'
+            }`}
+            onClick={handleToggle}
+          />
           <RiChat3Line className='icon' />
           <RiSendPlaneLine className='icon' />
         </Icons>
@@ -41,7 +52,7 @@ const Post: React.FC = () => {
       </Interactions>
 
       <Div>
-        <h3>130 likes</h3>
+        <h3>{like} likes</h3>
         <UserComment>
           <h3>Michel Pinto</h3>
           <p>New post guys, like and share!</p>
