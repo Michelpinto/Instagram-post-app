@@ -1,20 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { Comment } from '../types';
 
-export interface CounterState {
-  likes: number;
-}
+const initialState: Comment[] = [];
 
-const initialState: CounterState = {
-  likes: 0,
-};
-
-export const dataSlice = createSlice({
-  name: 'data',
+export const commentSlice = createSlice({
+  name: 'comments',
   initialState,
-  reducers: {},
-
-  extraReducers(builder) {},
+  reducers: {
+    addComment: (state, action: PayloadAction<Comment>) => {
+      state.push(action.payload);
+    },
+  },
 });
 
-export default dataSlice.reducer;
+export const { addComment } = commentSlice.actions;
+
+export default commentSlice.reducer;
