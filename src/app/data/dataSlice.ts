@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AppThunk, AppDispatch } from '../store';
 import { Comment } from '../types';
 
 const initialState: Comment[] = [];
 
-export const commentSlice = createSlice({
-  name: 'comments',
+const commentSlice = createSlice({
+  name: 'comment',
   initialState,
   reducers: {
     addComment: (state, action: PayloadAction<Comment>) => {
@@ -14,6 +14,14 @@ export const commentSlice = createSlice({
   },
 });
 
-export const { addComment } = commentSlice.actions;
+export const addComment =
+  (text: string): AppThunk =>
+  async (dispatch: AppDispatch) => {
+    const newComment: Comment = {
+      id: Math.random().toString(36).substring(2, 9),
+      text: text,
+    };
+    dispatch(commentSlice.actions.addComment(newComment));
+  };
 
 export default commentSlice.reducer;
