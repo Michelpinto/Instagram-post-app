@@ -89,7 +89,7 @@ export const UserComment = styled.div`
     font-size: 12px;
   }
 `;
-export const NewComment = styled.div`
+export const NewComment = styled.form`
   border-top: 1px solid #d7d7d7;
   display: flex;
   padding: 1.8rem 1.8rem 0 1.8rem;

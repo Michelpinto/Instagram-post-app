@@ -36,15 +36,13 @@ const Post: React.FC = () => {
     setText(e.target.value);
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (text === '') {
       return null;
     }
     dispatch(addComment(text));
-    console.log(text);
-    console.log(comments);
     setText('');
   };
 
@@ -89,9 +87,14 @@ const Post: React.FC = () => {
         <p className='time'>2 days ago</p>
       </Div>
 
-      <NewComment>
-        <input onChange={handleComment} placeholder='Add a new comment...' />
-        <button onClick={handleSubmit}>Post</button>
+      <NewComment onSubmit={handleSubmit}>
+        <input
+          type='text'
+          onChange={handleComment}
+          value={text}
+          placeholder='Add a new comment...'
+        />
+        <button type='submit'>Post</button>
       </NewComment>
     </Container>
   );
