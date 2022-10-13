@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { EventHandler, useState } from 'react';
 import {
   Container,
   Div,
@@ -16,15 +16,36 @@ import {
   RiSendPlaneLine,
   RiBookmarkLine,
 } from 'react-icons/ri';
+import { useDispatch, useSelector } from 'react-redux';
+import { addComment } from '../../app/data/dataSlice';
 
 const Post: React.FC = () => {
   const [like, setLike] = useState(30);
   const [toggleLike, setToggleLike] = useState(false);
+  const [text, setText] = useState('');
+  const dispatch = useDispatch();
+  const comments = useSelector((state: any) => state.comment);
 
   const handleToggle = () => {
     setToggleLike(!toggleLike);
     setLike(toggleLike ? like - 1 : like + 1);
     console.log('toggleLike', toggleLike);
+  };
+
+  const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  };
+
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (text === '') {
+      return null;
+    }
+    dispatch(addComment(text));
+    console.log(text);
+    console.log(comments);
+    setText('');
   };
 
   return (
@@ -57,17 +78,20 @@ const Post: React.FC = () => {
           <h3>Michel Pinto</h3>
           <p>New post guys, like and share!</p>
         </UserComment>
-        <UserComment>
-          <h3>Nuno Cohen</h3>
-          <p>Awesome content, thanks for sharing</p>
-        </UserComment>
+
+        {comments.map((comment: any) => (
+          <UserComment key={comment.id}>
+            <h3>comment</h3>
+            <p>{comment.text}</p>
+          </UserComment>
+        ))}
 
         <p className='time'>2 days ago</p>
       </Div>
 
       <NewComment>
-        <input placeholder='Add a new comment...' />
-        <button>Post</button>
+        <input onChange={handleComment} placeholder='Add a new comment...' />
+        <button onClick={handleSubmit}>Post</button>
       </NewComment>
     </Container>
   );
