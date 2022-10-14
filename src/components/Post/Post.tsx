@@ -20,6 +20,7 @@ import {
 } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment } from '../../app/data/dataSlice';
+import { deleteComment } from '../../app/data/dataSlice';
 
 const Post: React.FC = () => {
   const [like, setLike] = useState(30);
@@ -51,6 +52,11 @@ const Post: React.FC = () => {
 
   const handleClickFocus = () => {
     ref?.current?.focus();
+  };
+
+  const handleDelete = (id: string) => {
+    dispatch(deleteComment(id));
+    console.log('id', id);
   };
 
   return (
@@ -90,7 +96,10 @@ const Post: React.FC = () => {
               <h3>comment</h3>
               <p>{comment.text}</p>
             </div>
-            <RiDeleteBin7Line className='icon-del' />
+            <RiDeleteBin7Line
+              onClick={handleDelete.bind(null, comment.id)}
+              className='icon-del'
+            />
           </UserComment>
         ))}
 

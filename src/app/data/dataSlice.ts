@@ -11,6 +11,10 @@ const commentSlice = createSlice({
     addComment: (state, action: PayloadAction<Comment>) => {
       state.push(action.payload);
     },
+
+    deleteComment: (state, action: PayloadAction<string>) => {
+      return state.filter((comment) => comment.id !== action.payload);
+    },
   },
 });
 
@@ -22,6 +26,12 @@ export const addComment =
       text: text,
     };
     dispatch(commentSlice.actions.addComment(newComment));
+  };
+
+export const deleteComment =
+  (id: string): AppThunk =>
+  (dispatch: AppDispatch) => {
+    dispatch(commentSlice.actions.deleteComment(id));
   };
 
 export default commentSlice.reducer;
