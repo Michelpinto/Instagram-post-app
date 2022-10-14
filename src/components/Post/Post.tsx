@@ -6,6 +6,7 @@ import {
   Img,
   Interactions,
   NewComment,
+  OwnerComment,
   Profile,
   ProfileImg,
   UserComment,
@@ -15,6 +16,7 @@ import {
   RiChat3Line,
   RiSendPlaneLine,
   RiBookmarkLine,
+  RiDeleteBin7Line,
 } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment } from '../../app/data/dataSlice';
@@ -77,15 +79,18 @@ const Post: React.FC = () => {
 
       <Div>
         <h3>{like} likes</h3>
-        <UserComment>
+        <OwnerComment>
           <h3>Michel Pinto</h3>
           <p>New post guys, like and share!</p>
-        </UserComment>
+        </OwnerComment>
 
         {comments.map((comment: any) => (
           <UserComment key={comment.id}>
-            <h3>comment</h3>
-            <p>{comment.text}</p>
+            <div>
+              <h3>comment</h3>
+              <p>{comment.text}</p>
+            </div>
+            <RiDeleteBin7Line className='icon-del' />
           </UserComment>
         ))}
 

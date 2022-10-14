@@ -80,7 +80,7 @@ export const Div = styled.div`
   }
 `;
 
-export const UserComment = styled.div`
+export const OwnerComment = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
@@ -89,6 +89,32 @@ export const UserComment = styled.div`
     font-size: 12px;
   }
 `;
+
+export const UserComment = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & div {
+    display: flex;
+    gap: 8px;
+  }
+
+  & p {
+    font-size: 12px;
+  }
+
+  .icon-del {
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
+
+  .icon-del:hover {
+    color: #d7d7d7;
+    cursor: pointer;
+  }
+`;
+
 export const NewComment = styled.form`
   border-top: 1px solid #d7d7d7;
   display: flex;
