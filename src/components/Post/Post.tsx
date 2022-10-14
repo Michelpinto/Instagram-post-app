@@ -1,4 +1,4 @@
-import React, { EventHandler, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Container,
   Div,
@@ -6,6 +6,7 @@ import {
   Img,
   Interactions,
   NewComment,
+  OwnerComment,
   Profile,
   ProfileImg,
   UserComment,
@@ -15,15 +16,18 @@ import {
   RiChat3Line,
   RiSendPlaneLine,
   RiBookmarkLine,
+  RiDeleteBin7Line,
 } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment } from '../../app/data/dataSlice';
+import { deleteComment } from '../../app/data/dataSlice';
 
 const Post: React.FC = () => {
   const [like, setLike] = useState(30);
   const [toggleLike, setToggleLike] = useState(false);
   const [text, setText] = useState('');
   const dispatch = useDispatch();
+  const ref = useRef<HTMLInputElement>(null);
   const comments = useSelector((state: any) => state.comment);
 
   const handleToggle = () => {
@@ -36,16 +40,23 @@ const Post: React.FC = () => {
     setText(e.target.value);
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (text === '') {
       return null;
     }
     dispatch(addComment(text));
-    console.log(text);
-    console.log(comments);
     setText('');
+  };
+
+  const handleClickFocus = () => {
+    ref?.current?.focus();
+  };
+
+  const handleDelete = (id: string) => {
+    dispatch(deleteComment(id));
+    console.log('id', id);
   };
 
   return (
@@ -65,7 +76,7 @@ const Post: React.FC = () => {
             }`}
             onClick={handleToggle}
           />
-          <RiChat3Line className='icon' />
+          <RiChat3Line onClick={handleClickFocus} className='icon' />
           <RiSendPlaneLine className='icon' />
         </Icons>
 
@@ -74,24 +85,36 @@ const Post: React.FC = () => {
 
       <Div>
         <h3>{like} likes</h3>
-        <UserComment>
+        <OwnerComment>
           <h3>Michel Pinto</h3>
           <p>New post guys, like and share!</p>
-        </UserComment>
+        </OwnerComment>
 
         {comments.map((comment: any) => (
           <UserComment key={comment.id}>
-            <h3>comment</h3>
-            <p>{comment.text}</p>
+            <div>
+              <h3>comment</h3>
+              <p>{comment.text}</p>
+            </div>
+            <RiDeleteBin7Line
+              onClick={handleDelete.bind(null, comment.id)}
+              className='icon-del'
+            />
           </UserComment>
         ))}
 
         <p className='time'>2 days ago</p>
       </Div>
 
-      <NewComment>
-        <input onChange={handleComment} placeholder='Add a new comment...' />
-        <button onClick={handleSubmit}>Post</button>
+      <NewComment onSubmit={handleSubmit}>
+        <input
+          type='text'
+          ref={ref}
+          onChange={handleComment}
+          value={text}
+          placeholder='Add a new comment...'
+        />
+        <button type='submit'>Post</button>
       </NewComment>
     </Container>
   );
