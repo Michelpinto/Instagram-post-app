@@ -1,4 +1,4 @@
-import React, { EventHandler, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Container,
   Div,
@@ -24,6 +24,7 @@ const Post: React.FC = () => {
   const [toggleLike, setToggleLike] = useState(false);
   const [text, setText] = useState('');
   const dispatch = useDispatch();
+  const ref = useRef<HTMLInputElement>(null);
   const comments = useSelector((state: any) => state.comment);
 
   const handleToggle = () => {
@@ -46,6 +47,10 @@ const Post: React.FC = () => {
     setText('');
   };
 
+  const handleClickFocus = () => {
+    ref?.current?.focus();
+  };
+
   return (
     <Container>
       <Profile>
@@ -63,7 +68,7 @@ const Post: React.FC = () => {
             }`}
             onClick={handleToggle}
           />
-          <RiChat3Line className='icon' />
+          <RiChat3Line onClick={handleClickFocus} className='icon' />
           <RiSendPlaneLine className='icon' />
         </Icons>
 
@@ -90,6 +95,7 @@ const Post: React.FC = () => {
       <NewComment onSubmit={handleSubmit}>
         <input
           type='text'
+          ref={ref}
           onChange={handleComment}
           value={text}
           placeholder='Add a new comment...'
