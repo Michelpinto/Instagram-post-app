@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import commentSlice from './data/dataSlice';
+import imageSlice from './data/ImageSlice';
 
 export const store = configureStore({
   reducer: {
     comment: commentSlice,
+    image: imageSlice,
   },
 });
 
