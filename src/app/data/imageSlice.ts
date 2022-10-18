@@ -13,7 +13,6 @@ const initialState: ImageState = {
 export const getImages = createAsyncThunk('images/getImages', async () => {
   const response = await fetch('https://picsum.photos/v2/list?page=2&limit=6');
   const res = await response.json();
-  console.log(res);
   return res;
 });
 
