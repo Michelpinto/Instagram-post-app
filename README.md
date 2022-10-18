@@ -23,6 +23,6 @@
 
 ## Set up
 
-git clone [github_repo_url]
-yarn add
-npm run dev
+- git clone [github_repo_url]
+- yarn add
+- npm run dev
