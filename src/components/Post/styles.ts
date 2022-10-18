@@ -24,10 +24,15 @@ export const ProfileImg = styled.div`
   margin-right: 1rem;
 `;
 
-export const Img = styled.div`
+export const ImgBlock = styled.div`
   background-color: #d7d7d7;
   width: 100%;
   height: 38rem;
+
+  & img {
+    width: 100%;
+    height: 38rem;
+  }
 `;
 
 export const like = keyframes`
