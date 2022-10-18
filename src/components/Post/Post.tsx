@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   Container,
   Div,
   Icons,
-  Img,
+  ImgBlock,
   Interactions,
   NewComment,
   OwnerComment,
@@ -19,16 +19,18 @@ import {
   RiDeleteBin7Line,
 } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
-import { addComment } from '../../app/data/dataSlice';
-import { deleteComment } from '../../app/data/dataSlice';
+import { addComment, deleteComment } from '../../app/data/dataSlice';
+import { getImages } from '../../app/data/ImageSlice';
+import { AppDispatch } from '../../app/store';
 
 const Post: React.FC = () => {
   const [like, setLike] = useState(30);
   const [toggleLike, setToggleLike] = useState(false);
   const [text, setText] = useState('');
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const ref = useRef<HTMLInputElement>(null);
   const comments = useSelector((state: any) => state.comment);
+  const data = useSelector((state: any) => state.image);
 
   const handleToggle = () => {
     setToggleLike(!toggleLike);
@@ -59,6 +61,11 @@ const Post: React.FC = () => {
     console.log('id', id);
   };
 
+  useEffect(() => {
+    dispatch(getImages());
+    console.log(data.images);
+  }, [dispatch]);
+
   return (
     <Container>
       <Profile>
@@ -66,7 +73,11 @@ const Post: React.FC = () => {
         <h3>Michel Pinto</h3>
       </Profile>
 
-      <Img></Img>
+      <ImgBlock>
+        {data.images.map((image: any) => (
+          <img src={image.download_url} alt='post' />
+        ))}
+      </ImgBlock>
 
       <Interactions>
         <Icons>
